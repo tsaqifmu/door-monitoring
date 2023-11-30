@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -22,10 +22,8 @@ import {
 import axiosInstance from "@/lib/axiosInstance";
 import { AxiosError } from "axios";
 import { useToast } from "../ui/use-toast";
-import { getUser } from "@/lib/getUserAPI";
 
 const FormLogin = () => {
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -40,19 +38,6 @@ const FormLogin = () => {
     },
   });
 
-  useEffect(() => {
-    (async () => {
-      const { error } = await getUser();
-
-      if (!error) {
-        router.push("/dashboard");
-        return;
-      }
-
-      setIsSuccess(true);
-    })();
-  }, [router.push]);
-
   const onSubmit = async (values: z.infer<typeof formLoginSchema>) => {
     setIsSubmitting(true);
     const payload = {
@@ -63,7 +48,6 @@ const FormLogin = () => {
     try {
       const { data } = await axiosInstance.post("/auth/signin", payload);
 
-      // console.log(data.data.accessToken);
       localStorage.setItem("accessToken", data.data.accessToken);
       router.push("/dashboard");
     } catch (e) {
@@ -91,15 +75,6 @@ const FormLogin = () => {
       setIsSubmitting(false);
     }
   };
-
-  if (!isSuccess) {
-    return (
-      <div className="flex h-[200px] w-full items-center justify-center">
-        {/* <HashLoader color="#36d7b7" size={50} /> */}
-        LOADING......
-      </div>
-    );
-  }
 
   return (
     <Form {...form}>
