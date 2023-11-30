@@ -1,5 +1,5 @@
 const Dashboard = () => {
-  return <div>ini dashboard</div>;
+  return <div>ini TESTING CI/CD</div>;
 };
 
 export default Dashboard;
