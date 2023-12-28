@@ -6,12 +6,11 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import axiosInstance from "@/lib/axiosInstance";
 import { DataTable } from "@/components/table/DataTable";
-import FormAddAgent from "@/components/dashboard/beranda/FormAddAgent";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { columnsDoorsData } from "@/components/dashboard/pemantauan/ColumnsDoorsData";
 import FormAddDoor from "@/components/dashboard/pemantauan/FormAddDoor";
 
-const page = () => {
+const DoorMonitor = () => {
   const [doorsData, setDoorsData] = useState([]);
   const [addDoorOpen, setAddDoorOpen] = useState(false);
 
@@ -58,4 +57,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default DoorMonitor;
