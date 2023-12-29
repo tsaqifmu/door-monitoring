@@ -1,20 +1,6 @@
 "use client";
 
-import { MinusCircle, Trash2 } from "lucide-react";
-import { ColumnDef } from "@tanstack/react-table";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { deleteAgent } from "@/lib/deleteAgent";
+import AlertDeleteAgent from "./AlertDeleteAgent";
 
 export type TankRecapDataType = {
   _id: string;
@@ -24,11 +10,11 @@ export type TankRecapDataType = {
   __v: string;
 };
 
-export const columnsReportData: ColumnDef<TankRecapDataType>[] = [
+export const columnsReportData = (refetchAgents: any) => [
   {
     accessorKey: "name",
     header: "Nama",
-    cell: ({ row }) => (
+    cell: ({ row }: any) => (
       <div className="font-semibold normal-case ">{row.getValue("name")}</div>
     ),
   },
@@ -43,33 +29,8 @@ export const columnsReportData: ColumnDef<TankRecapDataType>[] = [
   {
     id: "actionDelete",
     header: "Hapus",
-    cell: ({ row }) => {
-      const rowData: any = row.original;
-      const id = rowData._id;
-
-      return (
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button size={"sm"} variant="destructive">
-              <Trash2 />
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                Apakah anda yakin ingin menghapus data ini?
-              </AlertDialogTitle>
-              <AlertDialogDescription></AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Batal</AlertDialogCancel>
-              <AlertDialogAction onClick={() => deleteAgent(id)}>
-                Hapus!
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      );
-    },
+    cell: ({ row }: any) => (
+      <AlertDeleteAgent row={row} refetchAgents={refetchAgents} />
+    ),
   },
 ];

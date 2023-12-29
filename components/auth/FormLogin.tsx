@@ -23,6 +23,7 @@ import axiosInstance from "@/lib/axiosInstance";
 import { AxiosError } from "axios";
 import { useToast } from "../ui/use-toast";
 import { getUser } from "@/lib/getUserAPI";
+import { handleError } from "@/lib/handlleAxiosError";
 
 const FormLogin = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -45,7 +46,7 @@ const FormLogin = () => {
       const { error } = await getUser();
 
       if (!error) {
-        router.push("/dashboard");
+        router.push("/beranda");
         return;
       }
 
@@ -64,9 +65,9 @@ const FormLogin = () => {
       const { data } = await axiosInstance.post("/auth/signin", payload);
 
       localStorage.setItem("accessToken", data.data.accessToken);
-      router.push("/dashboard");
+      router.push("/beranda");
     } catch (e) {
-      const error = e as AxiosError;
+      const error: any = e as AxiosError;
       const responseData: { message?: string } = error.response?.data || {};
 
       if (responseData.message === "User not found") {
@@ -84,7 +85,7 @@ const FormLogin = () => {
         });
         form.reset({ email: values.email, password: "" });
       } else {
-        console.log(error);
+        handleError(error, toast);
       }
     } finally {
       setIsSubmitting(false);

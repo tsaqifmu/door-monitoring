@@ -14,16 +14,16 @@ import { getUser } from "@/lib/getUserAPI";
 // import checkUserRole from "@/lib/checkUserRole";
 
 const Sidebar = () => {
-  const [userRole, setUserRole] = useState(null);
+  // const [userRole, setUserRole] = useState(null);
 
-  useEffect(() => {
-    const fetchUserRole = async () => {
-      const { user } = await getUser();
-      const { data }: any = user;
-      setUserRole(data ? data.role : null);
-    };
-    fetchUserRole();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUserRole = async () => {
+  //     const { user } = await getUser();
+  //     const { data }: any = user;
+  //     setUserRole(data ? data.role : null);
+  //   };
+  //   fetchUserRole();
+  // }, []);
 
   const pathname = usePathname();
   const pathSegments = pathname

@@ -1,14 +1,17 @@
 "use client";
 
 import * as z from "zod";
-import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import axiosInstance from "@/lib/axiosInstance";
 
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import CustomButton from "@/components/CustomButton";
+import { formAddAgentSchema } from "@/lib/validation";
 import {
   Form,
   FormControl,
@@ -17,58 +20,41 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
-import CustomButton from "@/components/CustomButton";
-import { formAddMicroorganismSchema } from "@/lib/validation";
+import { useAddAgent } from "@/lib/useAddAgent";
 
-const FormAddAgent = ({ setAddAgentOpen }: any) => {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formAddMicroorganismSchema>>({
-    resolver: zodResolver(formAddMicroorganismSchema),
+  const form = useForm<z.infer<typeof formAddAgentSchema>>({
+    resolver: zodResolver(formAddAgentSchema),
   });
-  const onSubmit = async (
-    values: z.infer<typeof formAddMicroorganismSchema>,
-  ) => {
-    setIsSubmitting(true);
 
+  const onSubmit = async (values: z.infer<typeof formAddAgentSchema>) => {
     const payload = {
       name: values.agentName,
       noHp: values.agentPhoneNumber,
       rfid: values.agentRfid,
     };
+    mutate(payload);
+  };
 
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await axiosInstance.post(
-        "/admin/create-agent",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
-      // updateDataAgents();
+  const { mutate, isPending } = useAddAgent({
+    onSuccess: (data: any) => {
       toast({
         title: data.message,
         description: "Agent berhasil ditambahkan",
       });
-    } catch (error: any) {
-      // handleArrayError(error, toast);
-    } finally {
-      setIsSubmitting(false);
       setAddAgentOpen(false);
-    }
-  };
+      refetchAgents();
+    },
+  });
 
   return (
     <div className="w-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 lg:w-full"
+          className="space-y-4 lg:w-full "
         >
           <FormField
             control={form.control}
@@ -123,7 +109,7 @@ const FormAddAgent = ({ setAddAgentOpen }: any) => {
             </div>
           </div>
 
-          <CustomButton isSubmitting={isSubmitting}>
+          <CustomButton isSubmitting={isPending}>
             <>
               <Plus size={16} strokeWidth={2.5} />
               Tambah Agent

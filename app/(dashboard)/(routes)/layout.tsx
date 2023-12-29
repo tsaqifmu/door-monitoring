@@ -1,8 +1,11 @@
 "use client";
 
-import { getUser } from "@/lib/getUserAPI";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { getUser } from "@/lib/getUserAPI";
+
+import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "@/components/dashboard/Sidebar";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 
@@ -43,7 +46,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <MobileSidebar />
         {children}
       </main>
-      {/* <Toaster /> */}
+      <Toaster />
     </div>
   );
 };

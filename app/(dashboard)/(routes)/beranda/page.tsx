@@ -1,55 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useFetchProduct } from "@/lib/useFetchProduct";
 
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import axiosInstance from "@/lib/axiosInstance";
+import { Skeleton } from "@/components/ui/skeleton";
 import { DataTable } from "@/components/table/DataTable";
-import FormAddAgent from "@/components/dashboard/beranda/FormAddAgent";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import DialogAddAgent from "@/components/dashboard/beranda/DialogAddAgent";
 import { columnsReportData } from "@/components/dashboard/beranda/ColumnsReportData";
-import { useQuery } from "@tanstack/react-query";
 
 const ReportAgent = () => {
-  const [addAgentOpen, setAddAgentOpen] = useState(false);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["Agent"],
-    queryFn: async () => {
-      const { data } = await axiosInstance.get("/info/get-agents", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      return data.data; // mengembalikan data secara langsung
-    },
-  });
-
-  console.log(data);
+  const { data, isLoading, refetch: refetchAgents } = useFetchProduct();
 
   return (
     <section className="py-10 ">
-      <Dialog open={addAgentOpen} onOpenChange={setAddAgentOpen}>
-        <DialogTrigger asChild className="mt-4">
-          <Button
-            variant="default"
-            size={"sm"}
-            className="gap-x-2 text-xs font-semibold"
-          >
-            <Plus size={16} strokeWidth={2.5} />
-            Tambah Agent
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px]">
-          <FormAddAgent setAddAgentOpen={setAddAgentOpen} />
-        </DialogContent>
-      </Dialog>
+      <DialogAddAgent refetchAgents={refetchAgents} />
+
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
       ) : (
         <DataTable
-          columns={columnsReportData}
+          columns={columnsReportData(refetchAgents)}
           data={data}
           filterPlaceholder="Filter Nama..."
           filterValue="name"
