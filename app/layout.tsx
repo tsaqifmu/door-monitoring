@@ -2,6 +2,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import TanstackProvider from "@/lib/providers/TanstackProvider";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -24,6 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-bgPurple text-textPurple", inter.className)}>
         <TanstackProvider>{children}</TanstackProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
