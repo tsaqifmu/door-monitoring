@@ -1,58 +1,35 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import axiosInstance from "@/lib/axiosInstance";
 import { DataTable } from "@/components/table/DataTable";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { columnsDoorsData } from "@/components/dashboard/pemantauan/ColumnsDoorsData";
-import FormAddDoor from "@/components/dashboard/pemantauan/FormAddDoor";
+import { useFetchDoorsInfo } from "@/lib/useFetchDoorsInfo";
+import { Skeleton } from "@/components/ui/skeleton";
+import DialogAddDoor from "@/components/dashboard/pemantauan/DialogAddDoor";
 
 const DoorMonitor = () => {
-  const [doorsData, setDoorsData] = useState([]);
-  const [addDoorOpen, setAddDoorOpen] = useState(false);
-
-  useEffect(() => {
-    const getDoorsInfo = async () => {
-      try {
-        const { data } = await axiosInstance.get(`/info/get-doors`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        });
-
-        setDoorsData(data.data);
-      } catch (error) {}
-    };
-    getDoorsInfo();
-  }, []);
+  const {
+    data: doorsData,
+    isLoading,
+    refetch: refetchDoors,
+  } = useFetchDoorsInfo();
 
   return (
     <section className="py-10 ">
-      <Dialog open={addDoorOpen} onOpenChange={setAddDoorOpen}>
-        <DialogTrigger asChild className="mt-4">
-          <Button
-            variant="default"
-            size={"sm"}
-            className="gap-x-2 text-xs font-semibold"
-          >
-            <Plus size={16} strokeWidth={2.5} />
-            Tambah Pintu
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[500px]">
-          <FormAddDoor setAddDoorOpen={setAddDoorOpen} />
-        </DialogContent>
-      </Dialog>
+      <DialogAddDoor refetchDoors={refetchDoors} />
 
-      <DataTable
-        columns={columnsDoorsData}
-        data={doorsData}
-        filterPlaceholder="Filter Nama..."
-        filterValue="doorNumber"
-      />
+      {isLoading ? (
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+        </div>
+      ) : (
+        <DataTable
+          columns={columnsDoorsData(refetchDoors)}
+          data={doorsData}
+          filterPlaceholder="Filter Nama..."
+          filterValue="doorNumber"
+        />
+      )}
     </section>
   );
 };

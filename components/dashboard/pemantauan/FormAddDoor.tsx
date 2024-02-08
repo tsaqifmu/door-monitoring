@@ -1,14 +1,16 @@
 "use client";
 
 import * as z from "zod";
-import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Download, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import axiosInstance from "@/lib/axiosInstance";
+import { useAddDoor } from "@/lib/useAddDoor";
+import { formAddDoorSchema } from "@/lib/validation";
 
 import { Input } from "@/components/ui/input";
+import CustomButton from "@/components/CustomButton";
+import { useToast } from "@/components/ui/use-toast";
 import {
   Form,
   FormControl,
@@ -17,46 +19,39 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
-import CustomButton from "@/components/CustomButton";
-import { formAddDoorSchema } from "@/lib/validation";
+import { Button } from "@/components/ui/button";
 
-const FormAddDoor = ({ setAddDoorOpen }: any) => {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+const FormAddDoor = ({
+  setAddDoorOpen,
+  refetchDoors,
+  onDataSubmit,
+  setButtonDisabled,
+}: any) => {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formAddDoorSchema>>({
     resolver: zodResolver(formAddDoorSchema),
   });
   const onSubmit = async (values: z.infer<typeof formAddDoorSchema>) => {
-    setIsSubmitting(true);
-
     const payload = {
       doorNumber: values.doorNumber,
     };
+    // Panggil fungsi callback onDataSubmit dan teruskan payload
+    onDataSubmit(payload);
 
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data } = await axiosInstance.post(
-        "/command/register-door",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
+    mutate(payload);
+  };
+  const { mutate, isPending } = useAddDoor({
+    onSuccess: (data: any) => {
       toast({
         title: data.message,
-        description: "Agent berhasil ditambahkan",
+        description: "Pintu berhasil ditambahkan",
       });
-    } catch (error: any) {
-      // handleArrayError(error, toast);
-    } finally {
-      setIsSubmitting(false);
-      setAddDoorOpen(false);
-    }
-  };
+      // setAddDoorOpen(false);
+      setButtonDisabled(false);
+      refetchDoors();
+    },
+  });
 
   return (
     <div className="w-full">
@@ -73,7 +68,7 @@ const FormAddDoor = ({ setAddDoorOpen }: any) => {
                 <FormLabel>Nomor Pintu</FormLabel>
                 <FormControl>
                   <div className="py-2">
-                    <Input placeholder="Contoh: 5.4.1" {...field} />
+                    <Input disabled placeholder="Contoh: 5.4.1" {...field} />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -81,12 +76,14 @@ const FormAddDoor = ({ setAddDoorOpen }: any) => {
             )}
           />
 
-          <CustomButton isSubmitting={isSubmitting}>
-            <>
-              <Plus size={16} strokeWidth={2.5} />
-              Tambah Pintu
-            </>
-          </CustomButton>
+          <div className="flex">
+            <CustomButton isSubmitting={isPending}>
+              <>
+                <Plus size={16} strokeWidth={2.5} />
+                Tambah Pintu
+              </>
+            </CustomButton>
+          </div>
         </form>
       </Form>
     </div>

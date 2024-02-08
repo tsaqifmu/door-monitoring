@@ -3,15 +3,14 @@
 import * as z from "zod";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import axiosInstance from "@/lib/axiosInstance";
+import { useAddAgent } from "@/lib/useAddAgent";
+import { formAddAgentSchema } from "@/lib/validation";
 
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import CustomButton from "@/components/CustomButton";
-import { formAddAgentSchema } from "@/lib/validation";
 import {
   Form,
   FormControl,
@@ -20,13 +19,32 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useAddAgent } from "@/lib/useAddAgent";
+import { useEffect } from "react";
+import mqtt from "mqtt";
 
 const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formAddAgentSchema>>({
     resolver: zodResolver(formAddAgentSchema),
+  });
+
+  useEffect(() => {
+    const client = mqtt.connect("ws://s1.azizfath.com:1884", {
+      username: "aziz",
+      password: "mqtt",
+    });
+
+    console.log("client", client);
+
+    client.on("connect", () => {
+      client.subscribe("rfidd");
+    });
+
+    client.on("message", (topic, message) => {
+      console.log(message.toString());
+      form.setValue("agentRfid", message.toString());
+    });
   });
 
   const onSubmit = async (values: z.infer<typeof formAddAgentSchema>) => {
@@ -99,7 +117,11 @@ const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
                     <FormLabel>No RFID</FormLabel>
                     <FormControl>
                       <div className="py-2">
-                        <Input placeholder="Contoh: 36775" {...field} />
+                        <Input
+                          {...field}
+                          disabled={true}
+                          placeholder="Langsung Scan"
+                        />
                       </div>
                     </FormControl>
                     <FormMessage />
