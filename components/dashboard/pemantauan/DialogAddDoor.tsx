@@ -11,6 +11,7 @@ const DialogAddDoor = ({ refetchDoors }: any) => {
 
   const [addDoorOpen, setAddDoorOpen] = useState(false);
   const [fileContent, setFileContent] = useState("");
+  const [doorNumber, setDoorNumber] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
 
   const handleDownload = () => {
@@ -22,13 +23,14 @@ const DialogAddDoor = ({ refetchDoors }: any) => {
     const downloadLink = document.createElement("a");
     downloadLink.href = fileUrl;
     downloadLink.style.display = "none";
-    downloadLink.setAttribute("download", "File.ino");
+    downloadLink.setAttribute("download", `File Pintu ${doorNumber}.ino`);
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
   };
 
   const handleDataSubmit = (data: any) => {
+    setDoorNumber(data.doorNumber);
     const newFileContent = `#include <SPI.h>
     #include <Ethernet.h>
     #include <PubSubClient.h>
