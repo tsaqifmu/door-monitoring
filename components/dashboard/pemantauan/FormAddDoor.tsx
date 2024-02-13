@@ -19,10 +19,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+import { handleArrayError } from "@/lib/handlleAxiosError";
 
 const FormAddDoor = ({
-  setAddDoorOpen,
   refetchDoors,
   onDataSubmit,
   setButtonDisabled,
@@ -50,6 +49,9 @@ const FormAddDoor = ({
       // setAddDoorOpen(false);
       setButtonDisabled(false);
       refetchDoors();
+    },
+    onError: (error: any) => {
+      handleArrayError(error, toast);
     },
   });
 

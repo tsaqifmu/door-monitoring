@@ -1,16 +1,17 @@
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import axiosInstance from "@/lib/axiosInstance";
-import { use, useEffect, useState } from "react";
 import io from "socket.io-client";
+import { useEffect, useState } from "react";
 
+import axiosInstance from "@/lib/axiosInstance";
+
+import { Switch } from "@/components/ui/switch";
+import { handleArrayError } from "@/lib/handlleAxiosError";
+import { toast } from "sonner";
 const SwitchDoor = ({ row }: any) => {
   const rowData: any = row.original;
   const [status, setStatus] = useState(rowData.statusBool);
   const [doorNumber, setDoorNumber] = useState(rowData.doorNumber);
 
   const sendToggle = async (data: any) => {
-    console.log("data", rowData);
     const dataBool = data ? 1 : 0;
     try {
       const dataStatus: any = await axiosInstance.post(
@@ -22,10 +23,11 @@ const SwitchDoor = ({ row }: any) => {
           },
         },
       );
-
-      return dataStatus;
+      toast(dataStatus.data.message, {
+        description: `Berhasil mengubah status pintu ${doorNumber}`,
+      });
     } catch (error) {
-      console.log(error);
+      handleArrayError(error, toast);
     }
   };
 
@@ -40,7 +42,6 @@ const SwitchDoor = ({ row }: any) => {
 
     socket.on("toggle", (toggle) => {
       if (doorNumber === toggle.doorNumber) {
-        console.log("toggle", toggle);
         setStatus(toggle.statusBool);
       }
     });

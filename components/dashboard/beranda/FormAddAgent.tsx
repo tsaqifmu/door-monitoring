@@ -1,6 +1,8 @@
 "use client";
 
+import mqtt from "mqtt";
 import * as z from "zod";
+import { useEffect } from "react";
 import { Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect } from "react";
-import mqtt from "mqtt";
+import { handleArrayError, handleError } from "@/lib/handlleAxiosError";
 
 const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
   const { toast } = useToast();
@@ -34,15 +35,11 @@ const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
       username: "aziz",
       password: "mqtt",
     });
-
-    console.log("client", client);
-
     client.on("connect", () => {
       client.subscribe("rfidd");
     });
 
     client.on("message", (topic, message) => {
-      console.log(message.toString());
       form.setValue("agentRfid", message.toString());
     });
   });
@@ -64,6 +61,10 @@ const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
       });
       setAddAgentOpen(false);
       refetchAgents();
+    },
+    onError: (error: any) => {
+      handleArrayError(error, toast);
+      // handleError(error, toast);
     },
   });
 

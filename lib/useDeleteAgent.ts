@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 // import { handleError } from "./handleAxiosError";
 // import microbeStore from "../dataStore";
 
-export const useDeleteAgent = (id: any, onSuccess: any) => {
+export const useDeleteAgent = (id: any, onSuccess: any, onError: any) => {
   return useMutation({
     mutationFn: async () => {
       const { data } = await axiosInstance.delete(
@@ -18,5 +18,6 @@ export const useDeleteAgent = (id: any, onSuccess: any) => {
       return data;
     },
     onSuccess,
+    onError,
   });
 };

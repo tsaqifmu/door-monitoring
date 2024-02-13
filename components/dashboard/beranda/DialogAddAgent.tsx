@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import FormAddAgent from "@/components/dashboard/beranda/FormAddAgent";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const DialogAddAgent = ({ refetchAgents }: any) => {
   const [addAgentDialogOpen, setAddAgentDialogOpen] = useState(false);
 
-  console.log("name", name);
   return (
     <Dialog open={addAgentDialogOpen} onOpenChange={setAddAgentDialogOpen}>
       <DialogTrigger asChild className="mt-4">

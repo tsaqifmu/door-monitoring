@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "./axiosInstance";
 
-export const useDeleteDoor = (id: any, onSuccess: any) => {
+export const useDeleteDoor = (id: any, onSuccess: any, onError: any) => {
   return useMutation({
     mutationFn: async () => {
       const { data } = await axiosInstance.delete(
@@ -15,5 +15,6 @@ export const useDeleteDoor = (id: any, onSuccess: any) => {
       return data;
     },
     onSuccess,
+    onError,
   });
 };

@@ -1,22 +1,7 @@
 "use client";
 
-import { FileClock, MinusCircle, Trash2 } from "lucide-react";
-import { ColumnDef } from "@tanstack/react-table";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { deleteDoor } from "@/lib/deleteDoor";
 import AlertDeleteDoor from "./AlertDeleteDoor";
-import DrawerLogDoor from "./DrawetLogDoor";
+import DrawerLogDoor from "./DrawerLogDoor";
 import SwitchDoor from "./SwitchDoor";
 
 export type TankRecapDataType = {
@@ -39,7 +24,7 @@ export const columnsDoorsData = (refetchDoors: any) => [
     ),
   },
   {
-    id: "actionLog",
+    id: "switchDoor",
     header: "Status Pintu",
     cell: ({ row }: any) => <SwitchDoor row={row} />,
   },
@@ -60,14 +45,6 @@ export const columnsDoorsData = (refetchDoors: any) => [
         })}
       </div>
     ),
-    // cell: ({ row }: any) => {
-    //   const now = new Date();
-    //   row?.setHours(
-    //     now.getHours(),
-    //     now.getMinutes(),
-    //     now.getSeconds(),
-    //     now.getMilliseconds(),
-    //   );
   },
 
   {

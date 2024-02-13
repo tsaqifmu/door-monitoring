@@ -1,3 +1,9 @@
+import { Trash2 } from "lucide-react";
+
+import { useDeleteDoor } from "@/lib/useDeleteDoor";
+
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,10 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
-import { useDeleteDoor } from "@/lib/useDeleteDoor";
-import { Trash2 } from "lucide-react";
+import { handleArrayError, handleError } from "@/lib/handlleAxiosError";
 
 const AlertDeleteDoor = ({ row, refetchDoors }: any) => {
   const rowData: any = row.original;
@@ -25,13 +28,17 @@ const AlertDeleteDoor = ({ row, refetchDoors }: any) => {
     });
     refetchDoors();
   };
+  const onError = (error: any) => {
+    handleArrayError(error, toast);
+    // handleError(error, toast);
+  };
 
-  const { mutate: deleteDoor } = useDeleteDoor(id, onSuccess);
+  const { mutate: deleteDoor } = useDeleteDoor(id, onSuccess, onError);
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button size={"sm"} variant="destructive">
-          <Trash2 />
+          <Trash2 size={18} />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

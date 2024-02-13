@@ -1,8 +1,9 @@
 import { Trash2 } from "lucide-react";
 
+import { useDeleteAgent } from "@/lib/useDeleteAgent";
+
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { useDeleteAgent } from "@/lib/useDeleteAgent";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,6 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { handleArrayError, handleError } from "@/lib/handlleAxiosError";
 
 const AlertDeleteAgent = ({ row, refetchAgents }: any) => {
   const rowData: any = row.original;
@@ -27,7 +29,12 @@ const AlertDeleteAgent = ({ row, refetchAgents }: any) => {
     refetchAgents();
   };
 
-  const { mutate: deleteAgent } = useDeleteAgent(id, onSuccess);
+  const onError = (error: any) => {
+    handleArrayError(error, toast);
+    // handleError(error, toast)
+  };
+
+  const { mutate: deleteAgent } = useDeleteAgent(id, onSuccess, onError);
 
   return (
     <AlertDialog>

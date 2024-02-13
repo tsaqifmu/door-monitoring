@@ -1,10 +1,11 @@
 "use client";
 
-import { DataTable } from "@/components/table/DataTable";
-import { columnsDoorsData } from "@/components/dashboard/pemantauan/ColumnsDoorsData";
 import { useFetchDoorsInfo } from "@/lib/useFetchDoorsInfo";
+
 import { Skeleton } from "@/components/ui/skeleton";
+import { DataTable } from "@/components/table/DataTable";
 import DialogAddDoor from "@/components/dashboard/pemantauan/DialogAddDoor";
+import { columnsDoorsData } from "@/components/dashboard/pemantauan/ColumnsDoorsData";
 
 const DoorMonitor = () => {
   const {
