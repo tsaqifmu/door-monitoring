@@ -3,8 +3,6 @@
 import { FileClock } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// import { useFetchDoorLogs } from "@/lib/useFetchDoorLogs";
-
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -32,7 +30,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-// import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/lib/axiosInstance";
 import { handleArrayError } from "@/lib/handlleAxiosError";
 import { useToast } from "@/components/ui/use-toast";
@@ -61,7 +58,7 @@ const DrawerLogDoor = ({ row }: any) => {
     prevPage: 0,
   });
 
-  const useFetchDoorLogs = async (rowdata: any, page: any) => {
+  const fetchDoorLogs = async (rowdata: any, page: any) => {
     try {
       const { data } = await axiosInstance.get(
         `/info/get-door-logs?doorNumber=${rowdata}&page=${page}`,
@@ -86,7 +83,7 @@ const DrawerLogDoor = ({ row }: any) => {
   };
 
   useEffect(() => {
-    useFetchDoorLogs(rowData.doorNumber, currentPage);
+    fetchDoorLogs(rowData.doorNumber, currentPage);
   }, [currentPage]);
 
   const handlePrevPage = () => {
