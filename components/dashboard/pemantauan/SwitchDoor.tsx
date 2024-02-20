@@ -12,6 +12,7 @@ const SwitchDoor = ({ row }: any) => {
   const [doorNumber, setDoorNumber] = useState(rowData.doorNumber);
 
   const sendToggle = async (data: any) => {
+    console.log("status", status);
     const dataBool = data ? 1 : 0;
     try {
       const dataStatus: any = await axiosInstance.post(
@@ -23,6 +24,7 @@ const SwitchDoor = ({ row }: any) => {
           },
         },
       );
+      console.log("dataStatus", dataStatus);
       toast(dataStatus.data.message, {
         description: `Berhasil mengubah status pintu ${doorNumber}`,
       });
@@ -41,6 +43,7 @@ const SwitchDoor = ({ row }: any) => {
     socket.on("disconnect", (err) => console.log(err));
 
     socket.on("toggle", (toggle) => {
+      console.log("toggle", toggle);
       if (doorNumber === toggle.doorNumber) {
         setStatus(toggle.statusBool);
       }
