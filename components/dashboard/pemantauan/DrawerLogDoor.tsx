@@ -110,7 +110,7 @@ const DrawerLogDoor = ({ row }: any) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button size={"sm"} variant="destructive">
+        <Button size={"sm"} className="bg-yellow-400 hover:bg-yellow-400/70">
           <FileClock size={18} />
         </Button>
       </DrawerTrigger>
