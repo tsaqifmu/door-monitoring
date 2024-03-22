@@ -27,7 +27,7 @@ const DoorMonitor = () => {
         <DataTable
           columns={columnsDoorsData(refetchDoors)}
           data={doorsData}
-          filterPlaceholder="Filter Nama..."
+          filterPlaceholder="Filter Nomor Pintu..."
           filterValue="doorNumber"
         />
       )}

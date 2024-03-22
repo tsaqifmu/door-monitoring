@@ -2,7 +2,6 @@ import { toast } from "@/components/ui/use-toast";
 import axiosInstance from "./axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 // import { handleError } from "./handleAxiosError";
-// import microbeStore from "../dataStore";
 
 export const useDeleteAgent = (id: any, onSuccess: any, onError: any) => {
   return useMutation({

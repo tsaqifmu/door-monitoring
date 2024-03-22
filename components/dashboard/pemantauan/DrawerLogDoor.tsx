@@ -87,26 +87,21 @@ const DrawerLogDoor = ({ row }: any) => {
   }, [currentPage]);
 
   const handlePrevPage = () => {
-    console.log("currentPage", currentPage);
-    console.log("Page", doorLogDataFull.page);
     if (
       currentPage == doorLogDataFull.page &&
       currentPage > 1 &&
       doorLogDataFull.hasPrevPage
     ) {
-      console.log("aku di klik");
       setCurrentPage((prev) => prev - 1);
     }
   };
 
   const handleNextPage = () => {
-    console.log("currentPage", currentPage);
-    console.log("Page", doorLogDataFull.page);
     if (currentPage == doorLogDataFull.page && doorLogDataFull.hasNextPage) {
       setCurrentPage((prev) => prev + 1);
     }
   };
-
+  console.log(doorLogDataFull);
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -115,9 +110,11 @@ const DrawerLogDoor = ({ row }: any) => {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="w-full overflow-x-auto md:mx-auto lg:max-w-xl">
+        <div className="w-full overflow-x-auto md:mx-auto lg:max-w-3xl">
           <DrawerHeader>
-            <DrawerTitle>Logging</DrawerTitle>
+            <DrawerTitle className="text-center">
+              Logging Pintu {rowData.doorNumber}
+            </DrawerTitle>
             <DrawerDescription>
               <Table>
                 <TableHeader>
@@ -163,19 +160,23 @@ const DrawerLogDoor = ({ row }: any) => {
                         />
                       </PaginationItem>
                       <PaginationItem>
-                        <PaginationLink href="#">
-                          {doorLogDataFull.prevPage}
-                        </PaginationLink>
+                        {doorLogDataFull.hasPrevPage && (
+                          <PaginationLink onClick={handlePrevPage}>
+                            {doorLogDataFull.prevPage}
+                          </PaginationLink>
+                        )}
                       </PaginationItem>
                       <PaginationItem>
-                        <PaginationLink href="#" isActive>
+                        <PaginationLink isActive>
                           {doorLogDataFull.page}
                         </PaginationLink>
                       </PaginationItem>
                       <PaginationItem>
-                        <PaginationLink href="#">
-                          {doorLogDataFull.nextPage}
-                        </PaginationLink>
+                        {doorLogDataFull && (
+                          <PaginationLink onClick={handleNextPage}>
+                            {doorLogDataFull.nextPage}
+                          </PaginationLink>
+                        )}
                       </PaginationItem>
                       <PaginationItem>
                         {doorLogDataFull.hasNextPage && <PaginationEllipsis />}
@@ -190,16 +191,8 @@ const DrawerLogDoor = ({ row }: any) => {
                   </Pagination>
                 </TableCaption>
               </Table>
-
-              {/* <DataTable
-                columns={columns}
-                data={doorLogData}
-                filterPlaceholder="Filter Nama..."
-                filterValue="doorNumber"
-              /> */}
             </DrawerDescription>
           </DrawerHeader>
-          <div className="p-4 pb-0"></div>
         </div>
       </DrawerContent>
     </Drawer>

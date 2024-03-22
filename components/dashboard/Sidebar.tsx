@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import cbiMonitoringLogo from "@/public/cbiMonitoringLogo.webp";
+import logo from "@/public/logo.png";
 
 import { routesUser } from "@/constant";
 import LogoutButton from "./LogoutButton";
@@ -34,10 +34,19 @@ const Sidebar = () => {
   return (
     <div className="flex h-full flex-col space-y-4 py-4 text-gray-900">
       <div className="flex-1 px-4">
-        <Link href="/beranda" className="mb-14 flex items-center pl-3">
-          {/* <div className="relative mr-4">
-            <Image alt="logo" width={155} height={46} src={cbiMonitoringLogo} />
-          </div> */}
+        <Link
+          href="/beranda"
+          className="mb-14 flex items-center justify-center pl-3 "
+        >
+          <div className="">
+            <Image
+              alt="logo"
+              width={80}
+              height={80}
+              src={logo}
+              className="transition-all hover:scale-105 hover:shadow-lg"
+            />
+          </div>
         </Link>
         <div className="space-y-1">
           {routesUser.map((route) => (

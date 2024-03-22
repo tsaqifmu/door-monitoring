@@ -24,6 +24,7 @@ import { AxiosError } from "axios";
 import { useToast } from "../ui/use-toast";
 import { getUser } from "@/lib/getUserAPI";
 import { handleError } from "@/lib/handlleAxiosError";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const FormLogin = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -95,8 +96,7 @@ const FormLogin = () => {
   if (!isSuccess) {
     return (
       <div className="flex h-[200px] w-full items-center justify-center">
-        {/* <HashLoader color="#36d7b7" size={50} /> */}
-        LOADING......
+        <SyncLoader color="#a436d6" />
       </div>
     );
   }

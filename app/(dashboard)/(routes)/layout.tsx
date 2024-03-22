@@ -8,6 +8,7 @@ import { getUser } from "@/lib/getUserAPI";
 import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "@/components/dashboard/Sidebar";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
+import SyncLoader from "react-spinners/SyncLoader";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -30,8 +31,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   if (!isSuccess) {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
-        {/* <HashLoader color="#36d7b7" size={100} /> */}
-        LOADING....
+        <SyncLoader color="#36d7b7" />
       </div>
     );
   }
