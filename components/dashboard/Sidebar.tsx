@@ -41,10 +41,9 @@ const Sidebar = () => {
           <div className="">
             <Image
               alt="logo"
-              width={80}
-              height={80}
+              width={200}
               src={logo}
-              className="transition-all hover:scale-105 hover:shadow-lg"
+              className="transition-all hover:scale-105 "
             />
           </div>
         </Link>

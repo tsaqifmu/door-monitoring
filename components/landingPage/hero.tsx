@@ -13,14 +13,19 @@ const Hero = () => {
           Door Monitoring Application
         </h3>
         <h1 className="text-4xl font-bold md:text-5xl lg:text-7xl">
-          Pengalaman <br /> terbaik rafting <br /> bersama kami.
+          Mengawal Laboratorium ke Era Digital dengan IoT Door Monitoring
         </h1>
-        <p className={`${styles.paragraph} w-64 lg:w-1/2 xl:w-2/5`}>
-          Siap-siap menjalani pengalaman seru seumur hidup dengan Marvel Rafting
-          Magelang. TIm pemandu ahli kami siapa memabawa anda menjalajahi
-          keindahan sungai di Jawa Tengah yang mengagumkan.
+        <p className={`${styles.paragraph} w-64 lg:w-1/2 xl:w-3/5`}>
+          Dalam perjalanan menuju era digital yang semakin maju, Internet of
+          Things (IoT) telah memainkan peran sentral dalam transformasi berbagai
+          aspek kehidupan, termasuk pengelolaan ruang laboratorium. Di sini,
+          setiap detail memiliki nilai krusial, dan pengamanan menjadi prioritas
+          utama. Untuk mengakomodasi kebutuhan ini, hadirlah solusi inovatif:
+          Sistem Monitoring Pintu Berbasis IoT
         </p>
-        <ButtonLogin />
+        <div className=" transition-all hover:-translate-y-1 lg:flex">
+          <ButtonLogin />
+        </div>
       </div>
       <Image
         src={hero}

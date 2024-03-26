@@ -12,8 +12,12 @@ const page = () => {
       <div className="flex flex-col items-center justify-center">
         <menu>
           <Beranda />
-          <About />
         </menu>
+        <div className="mt-16 w-full bg-purple-100">
+          <div className="flex flex-col items-center justify-center">
+            <About />
+          </div>
+        </div>
         <Footer />
       </div>
     </div>
