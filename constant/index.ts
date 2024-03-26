@@ -45,3 +45,22 @@ export const routesUser = [
   //   requiredRole: "User",
   // },
 ];
+
+export const navLinks = [
+  {
+    id: "beranda",
+    title: "Beranda",
+  },
+  {
+    id: "tentang",
+    title: "Tentang Kami",
+  },
+  {
+    id: "paket",
+    title: "Produk Kami",
+  },
+  {
+    id: "testimoni",
+    title: "Testimoni",
+  },
+];

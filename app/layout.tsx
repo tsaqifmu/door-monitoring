@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn("bg-bgPurple text-textPurple", inter.className)}>
         <TanstackProvider>{children}</TanstackProvider>
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
         <Toaster />
       </body>
     </html>
