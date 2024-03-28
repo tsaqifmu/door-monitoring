@@ -18,7 +18,7 @@ const NavBar = () => {
       className={`fixed z-50 flex w-full items-center justify-center bg-white shadow-xl`}
     >
       <div
-        className={`${styles.boxWidthNavFoot} ${styles.paddingX} flex w-full items-center justify-between py-3 `}
+        className={`${styles.boxWidthNavFoot} ${styles.paddingXMobile} flex w-full items-center justify-between py-3 `}
       >
         <Link href={`/`}>
           <Image src={logo} height={47} alt="Logo Botanico" />

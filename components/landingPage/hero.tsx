@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <section className={`${styles.flexCenter} relative pt-[73px]`}>
       <div
-        className={`${styles.boxWidth} ${styles.paddingX} absolute top-1/2 z-10 flex -translate-y-1/4 flex-col gap-1 text-white lg:gap-4`}
+        className={`${styles.boxWidth} ${styles.paddingXMobile} absolute top-1/2 z-10 flex  -translate-y-1/4 flex-col gap-1 text-white lg:gap-4`}
       >
         <h3 className="text-base font-normal md:text-lg lg:text-2xl">
           Door Monitoring Application
@@ -15,7 +15,7 @@ const Hero = () => {
         <h1 className="text-4xl font-bold md:text-5xl lg:text-7xl">
           Mengawal Laboratorium ke Era Digital dengan IoT Door Monitoring
         </h1>
-        <p className={`${styles.paragraph} w-64 lg:w-1/2 xl:w-3/5`}>
+        <p className={`${styles.paragraph} block w-64 md:w-2/3 xl:w-3/5`}>
           Dalam perjalanan menuju era digital yang semakin maju, Internet of
           Things (IoT) telah memainkan peran sentral dalam transformasi berbagai
           aspek kehidupan, termasuk pengelolaan ruang laboratorium. Di sini,
