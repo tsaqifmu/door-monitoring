@@ -101,7 +101,6 @@ const DrawerLogDoor = ({ row }: any) => {
       setCurrentPage((prev) => prev + 1);
     }
   };
-  console.log(doorLogDataFull);
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -133,7 +132,9 @@ const DrawerLogDoor = ({ row }: any) => {
                         {invoice.doorNumber}
                       </TableCell>
                       <TableCell>{invoice.deviceId}</TableCell>
-                      <TableCell>{invoice.statusBool}</TableCell>
+                      <TableCell>
+                        {invoice.statusBool ? "Buka" : "Tutup"}
+                      </TableCell>
                       <TableCell>{invoice.agent}</TableCell>
 
                       <TableCell>

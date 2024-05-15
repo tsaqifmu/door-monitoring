@@ -36,7 +36,7 @@ const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
       password: "mqtt",
     });
     client.on("connect", () => {
-      client.subscribe("rfidd");
+      client.subscribe("rfid");
     });
 
     client.on("message", (topic, message) => {
