@@ -6,6 +6,7 @@ import axiosInstance from "@/lib/axiosInstance";
 import { Switch } from "@/components/ui/switch";
 import { handleArrayError } from "@/lib/handlleAxiosError";
 import { toast } from "sonner";
+import { Label } from "@/components/ui/label";
 const SwitchDoor = ({ row }: any) => {
   const rowData: any = row.original;
   const [status, setStatus] = useState(rowData.statusBool);
@@ -53,12 +54,17 @@ const SwitchDoor = ({ row }: any) => {
 
   return (
     <div className="flex items-center space-x-2">
+      <Label className="font-bold text-red-500" htmlFor="toggle-door">
+        Tutup
+      </Label>
       <Switch
-        // id="airplane-mode"
+        id="toggle-door"
         checked={status}
         onCheckedChange={(data) => sendToggle(data)}
       />
-      {/* <Label htmlFor="airplane-mode">ON</Label> */}
+      <Label className="font-bold text-green-500" htmlFor="toggle-door">
+        Buka
+      </Label>
     </div>
   );
 };

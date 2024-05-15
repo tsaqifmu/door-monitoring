@@ -31,7 +31,6 @@ const AlertDeleteAgent = ({ row, refetchAgents }: any) => {
 
   const onError = (error: any) => {
     handleArrayError(error, toast);
-    // handleError(error, toast)
   };
 
   const { mutate: deleteAgent } = useDeleteAgent(id, onSuccess, onError);

@@ -1,6 +1,7 @@
 "use client";
 
 import AlertDeleteAgent from "./AlertDeleteAgent";
+import { ColumnDef } from "@tanstack/react-table";
 
 export type TankRecapDataType = {
   _id: string;
@@ -10,7 +11,11 @@ export type TankRecapDataType = {
   __v: string;
 };
 
-export const columnsReportData = (refetchAgents: any) => [
+type refetchAgents = () => void;
+
+export const columnsReportData = (
+  refetchAgents: refetchAgents,
+): ColumnDef<TankRecapDataType>[] => [
   {
     accessorKey: "name",
     header: "Nama",
