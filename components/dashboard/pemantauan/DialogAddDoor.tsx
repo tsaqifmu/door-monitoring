@@ -19,7 +19,7 @@ const DialogAddDoor = ({ refetchDoors }: any) => {
     const downloadLink = document.createElement("a");
     downloadLink.href = fileUrl;
     downloadLink.style.display = "none";
-    downloadLink.setAttribute("download", `File Pintu ${doorNumber}.ino`);
+    downloadLink.setAttribute("download", `${doorNumber}_code.ino`);
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);

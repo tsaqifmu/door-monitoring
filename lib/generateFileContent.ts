@@ -28,7 +28,7 @@ export const generateFileContent = (data: any) => {
   const char * deviceId = "${randomUUID()}";
   const char * doorNumber = "${data}";
   const char * auth_topic = "auth";
-  const char * door_topic = "auth/5.4.1";
+  const char * door_topic = "auth/${data}";
   
   //millis var
   long millis1 = 0;
