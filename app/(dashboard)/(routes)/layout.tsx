@@ -31,7 +31,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   if (!isSuccess) {
     return (
       <div className="flex h-screen w-screen items-center justify-center">
-        <SyncLoader color="#36d7b7" />
+        <SyncLoader color="#a436d6" />
       </div>
     );
   }
