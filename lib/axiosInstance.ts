@@ -8,5 +8,4 @@ const axiosInstance: AxiosInstance = axios.create({
   },
 });
 
-// testing
 export default axiosInstance;
