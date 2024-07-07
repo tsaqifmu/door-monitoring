@@ -1,4 +1,5 @@
 import io from "socket.io-client";
+import mqtt from "mqtt";
 import { useEffect, useState } from "react";
 
 import axiosInstance from "@/lib/axiosInstance";
@@ -33,7 +34,7 @@ const SwitchDoor = ({ row }: any) => {
   };
 
   useEffect(() => {
-    const socket = io("http://s1.azizfath.com:3000", {
+    const socket = io("http://baru.azizfath.com:3000", {
       transports: ["websocket"],
     });
 
@@ -51,6 +52,23 @@ const SwitchDoor = ({ row }: any) => {
       socket.disconnect();
     };
   }, [status]);
+
+  // useEffect(() => {
+  //   const client = mqtt.connect("ws://baru.azizfath.com:1884", {
+  //     username: "aziz",
+  //     password: "mqtt",
+  //   });
+  //   client.on("connect", () => {
+  //     client.subscribe("toggle");
+  //   });
+
+  //   client.on("message", (topic, message: any) => {
+  //     console.log(message);
+  //     if (doorNumber === message.doorNumber) {
+  //       setStatus(message.statusBool);
+  //     }
+  //   });
+  // }, [status]);
 
   return (
     <div className="flex items-center space-x-2">
