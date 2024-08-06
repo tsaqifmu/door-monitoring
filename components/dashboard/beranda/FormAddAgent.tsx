@@ -31,9 +31,9 @@ const FormAddAgent = ({ setAddAgentOpen, refetchAgents }: any) => {
   });
 
   useEffect(() => {
-    const client = mqtt.connect("ws://s1.azizfath.com:1884", {
+    const client = mqtt.connect("ws://10.1.1.103:1884", {
       username: "aziz",
-      password: "mqtt",
+      password: "1234",
     });
     client.on("connect", () => {
       client.subscribe("rfid");
