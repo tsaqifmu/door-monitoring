@@ -20,30 +20,6 @@ export const routesUser = [
     href: "/pemantauan",
     requiredRole: "User",
   },
-  // {
-  //   label: "Laporan QC",
-  //   icon: CalendarSearch,
-  //   href: "/laporan-QC",
-  //   requiredRole: "User",
-  // },
-  // {
-  //   label: "Laborat",
-  //   icon: Microscope,
-  //   href: "/laborat",
-  //   requiredRole: "User",
-  // },
-  // {
-  //   label: "Fermentor",
-  //   icon: FlaskConical,
-  //   href: "/fermentor",
-  //   requiredRole: "User",
-  // },
-  // {
-  //   label: "Pergudangan",
-  //   icon: Warehouse,
-  //   href: "/pergudangan",
-  //   requiredRole: "User",
-  // },
 ];
 
 export const navLinks = [
