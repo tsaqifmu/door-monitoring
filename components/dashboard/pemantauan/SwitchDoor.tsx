@@ -34,7 +34,7 @@ const SwitchDoor = ({ row }: any) => {
   };
 
   useEffect(() => {
-    const socket = io("http://baru.azizfath.com:3000", {
+    const socket = io(process.env.NEXT_PUBLIC_MQTT_URL!, {
       transports: ["websocket"],
     });
 

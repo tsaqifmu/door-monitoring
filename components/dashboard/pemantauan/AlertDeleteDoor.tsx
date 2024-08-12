@@ -30,7 +30,6 @@ const AlertDeleteDoor = ({ row, refetchDoors }: any) => {
   };
   const onError = (error: any) => {
     handleArrayError(error, toast);
-    // handleError(error, toast);
   };
 
   const { mutate: deleteDoor } = useDeleteDoor(id, onSuccess, onError);
