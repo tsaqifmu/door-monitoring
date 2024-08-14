@@ -8,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { handleArrayError } from "@/lib/handlleAxiosError";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
+
 const SwitchDoor = ({ row }: any) => {
   const rowData: any = row.original;
   const [status, setStatus] = useState(rowData.statusBool);
@@ -33,8 +34,10 @@ const SwitchDoor = ({ row }: any) => {
     }
   };
 
+  // process.env.NEXT_PUBLIC_MQTT_URL!
+
   useEffect(() => {
-    const socket = io(process.env.NEXT_PUBLIC_MQTT_URL!, {
+    const socket = io("ws://10.1.1.103:1884", {
       transports: ["websocket"],
     });
 
